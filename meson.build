@@ -16,6 +16,7 @@ endif
 
 pkg_config_path = meson.build_root()
 
+subdir('include')
 subdir('src')
 subdir('tests')
 
