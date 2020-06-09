@@ -1,9 +1,9 @@
 #include <iostream>
-#include <ara/array.hpp>
+#include <ara/core/array.h>
 
 int main()
 {
-    Array<int, 10> test_array;
+    ara::core::Array<int, 10> test_array;
 
     for(int i = 0; i < 10; i++)
         test_array[i] = i;

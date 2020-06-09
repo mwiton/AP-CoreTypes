@@ -1,5 +1,5 @@
 srcs = [
-    'ara/array.hpp',
+    'ara/core/array.h',
 ]
 
 array_lib = library(
