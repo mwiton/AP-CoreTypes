@@ -1,3 +1,10 @@
+/**
+ * Copytight (c) 2020
+ * umlaut Software Development and contributors
+ * 
+ * SPDX-License-Identifier: MIT
+ */
+
 #ifndef ARA_CORE_ARRAY_H
 #define ARA_CORE_ARRAY_H
 
