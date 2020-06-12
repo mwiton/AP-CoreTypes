@@ -1,5 +1,5 @@
-#ifndef ARRAY_H
-#define ARRAY_H
+#ifndef ARA_CORE_ARRAY_H
+#define ARA_CORE_ARRAY_H
 
 #include <array> // std::array
 #include <iterator>
@@ -203,4 +203,4 @@ namespace ara::core
     }
 } // namespace ara::core
 
-#endif // ARRAY_H
+#endif // ARA_CORE_ARRAY_H
