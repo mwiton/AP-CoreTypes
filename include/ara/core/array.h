@@ -15,7 +15,7 @@ namespace ara::core
     class Array
     {
         public:
-            Array() {}
+            Array() = default;
 
             /**
              * @brief Access specified element with bounds checking.
