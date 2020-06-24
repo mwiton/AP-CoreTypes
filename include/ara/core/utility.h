@@ -1,7 +1,7 @@
 /**
  * Copytight (c) 2020
  * umlaut Software Development and contributors
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 #ifndef ARA_CORE_UTILITY_H_
@@ -21,15 +21,17 @@ namespace ara::core {
 using Byte = std::byte;
 
 /**
- * Ara::core type alias for std::in_place_t
- *
  * An instance of this type can be passed to certain constructors of
  * ara::core::Optional to denote the intention that construction of the
  * contained type shall be done in-place.
  *
  * @req {SWS_CORE_04011, SWS_CORE_04012}
  */
-using in_place_t = std::in_place_t;
+class in_place_t
+{
+ public:
+    in_place_t() = default;
+};
 
 /**
  * Instance of ara::core::in_place_t
@@ -39,71 +41,156 @@ using in_place_t = std::in_place_t;
 inline constexpr in_place_t in_place{};
 
 /**
- * Ara::core type alias for in_place_type_t
- *
  * An instance of this type can be passed to certain constructors of
  * ara::core::Variant to denote the intention that construction of the contained
  * type shall be done in-place. Denote an type-distinguishing operation.
  *
  * @req {SWS_CORE_04021, SWS_CORE_04022}
  */
-template<typename T> using in_place_type_t = std::in_place_type_t<T>;
+template<typename T> class in_place_type_t
+{
+ public:
+    in_place_type_t() = default;
+};
 
 /**
- * Ara::core type alias for std::in_place_index_t
- *
  * An instance of this type can be passed to certain constructors of
  * ara::core::Variant to denote the intention that construction of the contained
  * type shall be done in-place. Denote an index-distinguishing operation.
  *
  * @req {SWS_CORE_04031, SWS_CORE_04032}
  */
-template<std::size_t I> using in_place_index_t = std::in_place_index_t<I>;
+template<std::size_t I> class in_place_index_t
+{
+ public:
+    in_place_index_t() = default;
+};
 
+/**
+ * These global functions allow uniform access to the data and size properties
+ * of contiguous containers. They are eqavilents to functions from C++17
+ */
+
+/**
+ * Return a pointer to the block of memory that contains the elements of a
+ * container.
+ *
+ * @param c the container
+ * @return pointer to data
+ * @req {SWS_CORE_04110}
+ */
 template<typename Container> constexpr auto data(Container& c)
   -> decltype(c.data())
 {
     return std::data(c);
 }
 
-template <typename Container> constexpr auto data (Container const &c) -> decltype(c.data())
+/**
+ * Return a const_pointer to the block of memory that contains the elements of a
+ * container
+ *
+ * @param c the container
+ * @return const pointer to data
+ * @req {SWS_CORE_04111}
+ */
+template<typename Container> constexpr auto data(Container const& c)
+  -> decltype(c.data())
 {
     return std::data(c);
 }
 
-template <typename T, std::size_t N> constexpr T* data (T(&array)[N]) noexcept
+/**
+ * Return a pointer to the block of memory that contains the elements of a raw
+ * array.
+ *
+ * @param array the array
+ * @return pointer to data
+ * @req {SWS_CORE_04112}
+ */
+template<typename T, std::size_t N> constexpr T* data(T (&array)[N]) noexcept
 {
     return std::data(array);
 }
 
-template <typename E> constexpr E const * data (std::initializer_list< E > il) noexcept
+/**
+ * Return a pointer to the block of memory that contains the elements of a
+ * std::initializer_list
+ *
+ * @param il initializer list
+ * @return const pointer to data
+ * @req {SWS_CORE_04113}
+ */
+template<typename E> constexpr E const*
+data(std::initializer_list<E> il) noexcept
 {
     return std::data(il);
 }
 
-template <typename Container> constexpr auto size (Container const &c) -> decltype(c.size())
+/**
+ * Return the size of a container.
+ *
+ * @param c container
+ * @return size of container
+ *
+ * @req {SWS_CORE_04120}
+ */
+template<typename Container> constexpr auto size(Container const& c)
+  -> decltype(c.size())
 {
     return std::size(c);
 }
 
-template <typename T, std::size_t N> constexpr std::size_t size (T(&array)[N]) noexcept
+/**
+ * Return the size of a raw array
+ *
+ * @param array the array
+ * @return size of array
+ * @req {SWS_CORE_04121}
+ */
+template<typename T, std::size_t N> constexpr std::size_t
+  size(T (&array)[N]) noexcept
 {
     return std::size(array);
 }
 
-template <typename Container> constexpr auto empty (Container const &c) -> decltype(c.empty())
+/**
+ * Return whether the given container is empty.
+ *
+ * @param c container
+ * @return true if container is empty
+ * @return false otherwise
+ * @req {SWS_CORE_04130}
+ */
+template<typename Container> constexpr auto empty(Container const& c)
+  -> decltype(c.empty())
 {
     return std::empty(c);
 }
 
-template <typename T, std::size_t N> constexpr bool empty (T(&array)[N]) noexcept
+/**
+ * Return whether the given raw array is empty
+ *
+ * @param array thr array
+ * @return true if array is empty
+ * @return false otherwise
+ * @req {SWS_CORE_04131}
+ */
+template<typename T, std::size_t N> constexpr bool empty(T (&array)[N]) noexcept
 {
     return std::empty(array);
 }
 
-template <typename E> constexpr bool empty (std::initializer_list< E > il) noexcept
+/**
+ * Return whether the given std::initializer_list is empty
+ *
+ * @param il initializer list
+ * @return true if initializer list is empty
+ * @return false otherwise
+ * @req {SWS_CORE_04132}
+ */
+template<typename E> constexpr bool empty(std::initializer_list<E> il) noexcept
 {
     return std::empty(il);
 }
 }  // namespace ara::core
-#endif  // ARA_CORE_ERRORCODE_H_
+#endif  // ARA_CORE_UTILITY_H_
