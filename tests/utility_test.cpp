@@ -4,11 +4,6 @@
 
 #include "ara/core/utility.h"
 
-TEST_CASE("Byte is an alias for std::byte", "[SWS_CORE], [SWS_CORE_04200]")
-{
-    REQUIRE(std::is_same_v<ara::core::Byte, std::byte>);
-}
-
 TEST_CASE("in_place_t can be constructed", "[SWS_CORE], [SWS_CORE_04011, SWS_CORE_04012]")
 {
     REQUIRE_NOTHROW(ara::core::in_place_t{});

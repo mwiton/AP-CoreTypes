@@ -11,14 +11,12 @@
 
 namespace ara::core {
 /**
- * Ara::core type alias for std::byte
- *
  * It is a type that is able to hold a “byte” of the machine.
- * It is an owntype distinct from any other type.
+ * It is an own type distinct from any other type.
  *
  * @req {SWS_CORE_04200}
  */
-using Byte = std::byte;
+using Byte = std::byte;  // TODO: to change with custom implementation
 
 /**
  * An instance of this type can be passed to certain constructors of
@@ -27,10 +25,9 @@ using Byte = std::byte;
  *
  * @req {SWS_CORE_04011, SWS_CORE_04012}
  */
-class in_place_t
+struct in_place_t
 {
- public:
-    in_place_t() = default;
+    explicit in_place_t() = default;
 };
 
 /**
@@ -47,10 +44,9 @@ inline constexpr in_place_t in_place{};
  *
  * @req {SWS_CORE_04021, SWS_CORE_04022}
  */
-template<typename T> class in_place_type_t
+template<typename T> struct in_place_type_t
 {
- public:
-    in_place_type_t() = default;
+    explicit in_place_type_t() = default;
 };
 
 /**
@@ -60,10 +56,9 @@ template<typename T> class in_place_type_t
  *
  * @req {SWS_CORE_04031, SWS_CORE_04032}
  */
-template<std::size_t I> class in_place_index_t
+template<std::size_t I> struct in_place_index_t
 {
- public:
-    in_place_index_t() = default;
+    explicit in_place_index_t() = default;
 };
 
 /**
