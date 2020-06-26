@@ -4,7 +4,8 @@
 
 #include "ara/core/utility.h"
 
-TEST_CASE("in_place_t can be constructed", "[SWS_CORE], [SWS_CORE_04011, SWS_CORE_04012]")
+TEST_CASE("in_place_t can be constructed",
+          "[SWS_CORE], [SWS_CORE_04011, SWS_CORE_04012]")
 {
     REQUIRE_NOTHROW(ara::core::in_place_t{});
 }
@@ -14,12 +15,14 @@ TEST_CASE("There is instance of in_place_t", "[SWS_CORE], [SWS_CORE_04013]")
     REQUIRE_NOTHROW((void) ara::core::in_place);
 }
 
-TEST_CASE("in_place_type_t can be constructed", "[SWS_CORE], [SWS_CORE_04021, SWS_CORE_04022]")
+TEST_CASE("in_place_type_t can be constructed",
+          "[SWS_CORE], [SWS_CORE_04021, SWS_CORE_04022]")
 {
     REQUIRE_NOTHROW(ara::core::in_place_type_t<int>{});
 }
 
-TEST_CASE("in_place_index_t can be constructed", "[SWS_CORE], [SWS_CORE_04031, SWS_CORE_04032]")
+TEST_CASE("in_place_index_t can be constructed",
+          "[SWS_CORE], [SWS_CORE_04031, SWS_CORE_04032]")
 {
     REQUIRE_NOTHROW(ara::core::in_place_index_t<1u>{});
 }
@@ -90,7 +93,6 @@ TEST_CASE("Returns if array empty", "[SWS_CORE], [SWS_CORE_04131]")
     }
     // array can not be empty, so no true case for empty
 }
-
 
 TEST_CASE("Returns if initializer_list empty", "[SWS_CORE], [SWS_CORE_04132]")
 {
