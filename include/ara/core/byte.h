@@ -11,8 +11,9 @@
 #include <cstddef>
 
 namespace ara::core {
-class ByteImpl {
-public:
+class ByteImpl
+{
+ public:
     using ByteType = uint8_t;
 
     ByteImpl() = default;
@@ -29,11 +30,83 @@ public:
 
     constexpr bool operator!=(const ByteImpl&) const = default;
 
-private:
+ private:
     std::byte impl;
 };
 
-using Byte = ByteImpl;
-} // namespace ara::com
+template<class IntegerType> constexpr IntegerType
+to_integer(ByteImpl b) noexcept requires std::integral<IntegerType>
+{
+    return IntegerType(static_cast<ByteImpl::ByteType>(b));
+}
 
-#endif // ARA_CORE_BYTE_H_
+template<class IntegerType> constexpr ByteImpl
+operator<<(ByteImpl b, IntegerType shift) noexcept
+  requires std::integral<IntegerType>
+{
+    return ByteImpl(static_cast<ByteImpl::ByteType>(b) << shift);
+}
+
+template<class IntegerType> constexpr ByteImpl&
+operator<<=(ByteImpl& b, IntegerType shift) noexcept
+  requires std::integral<IntegerType>
+{
+    return b = b << shift;
+}
+
+template<class IntegerType> constexpr ByteImpl
+operator>>(ByteImpl b, IntegerType shift) noexcept
+  requires std::integral<IntegerType>
+{
+    return ByteImpl(static_cast<ByteImpl::ByteType>(b) >> shift);
+}
+
+template<class IntegerType> constexpr ByteImpl&
+operator>>=(ByteImpl& b, IntegerType shift) noexcept
+  requires std::integral<IntegerType>
+{
+    return b = b >> shift;
+}
+
+constexpr ByteImpl operator|(ByteImpl l, ByteImpl r) noexcept
+{
+    return ByteImpl(static_cast<ByteImpl::ByteType>(l)
+                    | static_cast<ByteImpl::ByteType>(r));
+}
+
+constexpr ByteImpl& operator|=(ByteImpl& l, ByteImpl r) noexcept
+{
+    return l = l | r;
+}
+
+constexpr ByteImpl operator&(ByteImpl l, ByteImpl r) noexcept
+{
+    return ByteImpl(static_cast<ByteImpl::ByteType>(l)
+                    & static_cast<ByteImpl::ByteType>(r));
+}
+
+constexpr ByteImpl& operator&=(ByteImpl& l, ByteImpl r) noexcept
+{
+    return l = l & r;
+}
+
+constexpr ByteImpl operator^(ByteImpl l, ByteImpl r) noexcept
+{
+    return ByteImpl(static_cast<ByteImpl::ByteType>(l)
+                    ^ static_cast<ByteImpl::ByteType>(r));
+}
+
+constexpr ByteImpl& operator^=(ByteImpl& l, ByteImpl r) noexcept
+{
+    return l = l ^ r;
+}
+
+constexpr ByteImpl operator~(ByteImpl b) noexcept
+{
+    return ByteImpl(~static_cast<ByteImpl::ByteType>(b));
+}
+
+using Byte = ByteImpl;
+}  // namespace ara::core
+
+#endif  // ARA_CORE_BYTE_H_
