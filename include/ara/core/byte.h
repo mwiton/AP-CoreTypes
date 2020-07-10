@@ -94,8 +94,9 @@ class ByteImpl
  * @param b Byte object
  * @return constexpr IntegerType Integer value
  */
-template<class IntegerType,
-         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+template<
+  class IntegerType,
+  class = typename std::enable_if<std::is_integral<IntegerType>::value>::type>
 constexpr IntegerType to_integer(ByteImpl b) noexcept
 {
     return IntegerType(static_cast<ByteImpl::ByteType>(b));
@@ -109,8 +110,9 @@ constexpr IntegerType to_integer(ByteImpl b) noexcept
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl Object with shifted value
  */
-template<class IntegerType,
-         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+template<
+  class IntegerType,
+  class = typename std::enable_if<std::is_integral<IntegerType>::value>::type>
 constexpr ByteImpl operator<<(ByteImpl b, IntegerType shift) noexcept
 {
     return ByteImpl(static_cast<ByteImpl::ByteType>(b) << shift);
@@ -124,8 +126,9 @@ constexpr ByteImpl operator<<(ByteImpl b, IntegerType shift) noexcept
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl& Reference to object with shifted value
  */
-template<class IntegerType,
-         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+template<
+  class IntegerType,
+  class = typename std::enable_if<std::is_integral<IntegerType>::value>::type>
 constexpr ByteImpl& operator<<=(ByteImpl& b, IntegerType shift) noexcept
 {
     return b = b << shift;
@@ -139,8 +142,9 @@ constexpr ByteImpl& operator<<=(ByteImpl& b, IntegerType shift) noexcept
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl Object with shifted value
  */
-template<class IntegerType,
-         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+template<
+  class IntegerType,
+  class = typename std::enable_if<std::is_integral<IntegerType>::value>::type>
 constexpr ByteImpl operator>>(ByteImpl b, IntegerType shift) noexcept
 {
     return ByteImpl(static_cast<ByteImpl::ByteType>(b) >> shift);
@@ -154,8 +158,9 @@ constexpr ByteImpl operator>>(ByteImpl b, IntegerType shift) noexcept
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl& Reference to object with shifted value
  */
-template<class IntegerType,
-         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+template<
+  class IntegerType,
+  class = typename std::enable_if<std::is_integral<IntegerType>::value>::type>
 constexpr ByteImpl& operator>>=(ByteImpl& b, IntegerType shift) noexcept
 {
     return b = b >> shift;
