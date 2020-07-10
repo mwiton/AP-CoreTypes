@@ -12,7 +12,7 @@
 
 namespace ara::core {
 /**
- * @brief Wrapper class for std::byte class object
+ * @brief Wrapper class for std::byte class object.
  *
  * @req {SWS_CORE_10100}
  */
@@ -22,13 +22,13 @@ class ByteImpl
     using ByteType = uint8_t;
 
     /**
-     * @brief Construct a new Byte Impl object with no defined value
+     * @brief Construct a new Byte Impl object with no defined value.
      *
      * @req {SWS_CORE_10104}
      */
     ByteImpl() = default;
     /**
-     * @brief Constuct object with given value
+     * @brief Constuct object with given value.
      * @arg Value of byte
      *
      * @req {SWS_CORE_10102, SWS_CORE_10103}
@@ -36,7 +36,7 @@ class ByteImpl
     constexpr explicit ByteImpl(ByteType value) : impl{value} {}
 
     /**
-     * @brief Default destructor
+     * @brief Default destructor.
      *
      * @req {SWS_CORE_10105}
      */
@@ -44,7 +44,7 @@ class ByteImpl
 
     /**
      * @brief Cast operator for machine byte type. Allowed only explicit
-     * conversion
+     * conversion.
      *
      * @return ByteType Value of byte given in byte machine type
      * @req {SWS_CORE_10106, SWS_CORE_10107, SWS_CORE_10108}
@@ -55,17 +55,32 @@ class ByteImpl
     }
 
     /**
-     * @brief Primart equality operator for Byte object
+     * @brief Equality operator for Byte object.
      *
      * @return true When given Byte object is equal
      * @return false When given Byte object is not equal
-     * @req {SWS_CORE_10109, SWS_CORE_10110}
+     * @req {SWS_CORE_10109}
      */
-    constexpr bool operator==(const ByteImpl&) const = default;
+    constexpr bool operator==(const ByteImpl& secondByteObject) const
+    {
+        return impl == secondByteObject.impl;
+    }
+
+    /**
+     * @brief Not-equality operator for Byte object.
+     *
+     * @return true When given Byte object is not equal
+     * @return false When given Byte object equal
+     * @req {SWS_CORE_10110}
+     */
+    constexpr bool operator!=(const ByteImpl& secondByteObject) const
+    {
+        return ! (*this == secondByteObject);
+    }
 
  private:
     /**
-     * @brief Only member is std::byte object which contains value
+     * @brief Only member is std::byte object which contains value.
      *
      * @req {SWS_CORE_10101}
      */
@@ -79,74 +94,75 @@ class ByteImpl
  * @param b Byte object
  * @return constexpr IntegerType Integer value
  */
-template<class IntegerType> constexpr IntegerType
-to_integer(ByteImpl b) noexcept requires std::integral<IntegerType>
+template<class IntegerType,
+         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+constexpr IntegerType to_integer(ByteImpl b) noexcept
 {
     return IntegerType(static_cast<ByteImpl::ByteType>(b));
 }
 
 /**
- * @brief Left shift operator for Byte object
+ * @brief Left shift operator for Byte object.
  *
  * @tparam IntegerType Type of argument
  * @param b Byte object
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl Object with shifted value
  */
-template<class IntegerType> constexpr ByteImpl
-operator<<(ByteImpl b, IntegerType shift) noexcept
-  requires std::integral<IntegerType>
+template<class IntegerType,
+         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+constexpr ByteImpl operator<<(ByteImpl b, IntegerType shift) noexcept
 {
     return ByteImpl(static_cast<ByteImpl::ByteType>(b) << shift);
 }
 
 /**
- * @brief Left shift operator with assigment for Byte object
+ * @brief Left shift operator with assigment for Byte object.
  *
  * @tparam IntegerType Type of argument
  * @param b Byte object
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl& Reference to object with shifted value
  */
-template<class IntegerType> constexpr ByteImpl&
-operator<<=(ByteImpl& b, IntegerType shift) noexcept
-  requires std::integral<IntegerType>
+template<class IntegerType,
+         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+constexpr ByteImpl& operator<<=(ByteImpl& b, IntegerType shift) noexcept
 {
     return b = b << shift;
 }
 
 /**
- * @brief Right shift operator for Byte object
+ * @brief Right shift operator for Byte object.
  *
  * @tparam IntegerType Type of argument
  * @param b Byte object
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl Object with shifted value
  */
-template<class IntegerType> constexpr ByteImpl
-operator>>(ByteImpl b, IntegerType shift) noexcept
-  requires std::integral<IntegerType>
+template<class IntegerType,
+         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+constexpr ByteImpl operator>>(ByteImpl b, IntegerType shift) noexcept
 {
     return ByteImpl(static_cast<ByteImpl::ByteType>(b) >> shift);
 }
 
 /**
- * @brief Right shift operator with assigment for Byte object
+ * @brief Right shift operator with assigment for Byte object.
  *
  * @tparam IntegerType Type of argument
  * @param b Byte object
  * @param shift Amount of bits to shift
  * @return constexpr ByteImpl& Reference to object with shifted value
  */
-template<class IntegerType> constexpr ByteImpl&
-operator>>=(ByteImpl& b, IntegerType shift) noexcept
-  requires std::integral<IntegerType>
+template<class IntegerType,
+         typename = std::enable_if<std::is_integral<IntegerType>::value>::type>
+constexpr ByteImpl& operator>>=(ByteImpl& b, IntegerType shift) noexcept
 {
     return b = b >> shift;
 }
 
 /**
- * @brief Bitwise OR operator for Byte object
+ * @brief Bitwise OR operator for Byte object.
  *
  * @param l First byte object
  * @param r Second byte object
@@ -159,7 +175,7 @@ constexpr ByteImpl operator|(ByteImpl l, ByteImpl r) noexcept
 }
 
 /**
- * @brief Bitwise OR operator with assigment for Byte object
+ * @brief Bitwise OR operator with assigment for Byte object.
  *
  * @param l First byte object
  * @param r Second byte object
@@ -171,7 +187,7 @@ constexpr ByteImpl& operator|=(ByteImpl& l, ByteImpl r) noexcept
 }
 
 /**
- * @brief Bitwise AND operator for Byte object
+ * @brief Bitwise AND operator for Byte object.
  *
  * @param l First byte object
  * @param r Second byte object
@@ -184,7 +200,7 @@ constexpr ByteImpl operator&(ByteImpl l, ByteImpl r) noexcept
 }
 
 /**
- * @brief Bitwise AND operator with assigment for Byte object
+ * @brief Bitwise AND operator with assigment for Byte object.
  *
  * @param l First byte object
  * @param r Second byte object
@@ -196,7 +212,7 @@ constexpr ByteImpl& operator&=(ByteImpl& l, ByteImpl r) noexcept
 }
 
 /**
- * @brief Bitwise XOR operator for Byte object
+ * @brief Bitwise XOR operator for Byte object.
  *
  * @param l First byte object
  * @param r Second byte object
@@ -209,7 +225,7 @@ constexpr ByteImpl operator^(ByteImpl l, ByteImpl r) noexcept
 }
 
 /**
- * @brief Bitwise XOR operator with assigment for Byte object
+ * @brief Bitwise XOR operator with assigment for Byte object.
  *
  * @param l First byte object
  * @param r Second byte object
@@ -221,7 +237,7 @@ constexpr ByteImpl& operator^=(ByteImpl& l, ByteImpl r) noexcept
 }
 
 /**
- * @brief Bit inversion operator for Byte object
+ * @brief Bit inversion operator for Byte object.
  *
  * @param b Byte object
  * @return constexpr ByteImpl Object with value after inverting bits

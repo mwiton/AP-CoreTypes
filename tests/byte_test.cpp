@@ -49,7 +49,7 @@ TEST_CASE("ByteImpl is not implicitly convertible from any other type",
 }
 
 TEST_CASE("ByteImpl is not implicitly convertible to any other type",
-          "[SWS_CORE], [SWS_CORE_10106]")
+          "[SWS_CORE], [SWS_CORE_10107]")
 {
     REQUIRE_FALSE(std::is_convertible_v<ara::core::ByteImpl, uint8_t>);
     REQUIRE_FALSE(std::is_convertible_v<ara::core::ByteImpl, int>);
@@ -57,7 +57,7 @@ TEST_CASE("ByteImpl is not implicitly convertible to any other type",
 }
 
 TEST_CASE("ByteImpl can be converted to unsigned char",
-          "[SWS_CORE], [SWS_CORE_10106]")
+          "[SWS_CORE], [SWS_CORE_10108]")
 {
     WHEN("Not in constant expression")
     {
@@ -77,7 +77,7 @@ TEST_CASE("ByteImpl can be converted to unsigned char",
 }
 
 TEST_CASE("ByteImpl shall be comparable for equality",
-          "[SWS_CORE], [SWS_CORE_10106]")
+          "[SWS_CORE], [SWS_CORE_10109]")
 {
     WHEN("ByteImpl objects are equal")
     {
@@ -93,7 +93,7 @@ TEST_CASE("ByteImpl shall be comparable for equality",
 }
 
 TEST_CASE("ByteImpl shall be comparable for non-equality",
-          "[SWS_CORE], [SWS_CORE_10106]")
+          "[SWS_CORE], [SWS_CORE_10110]")
 {
     WHEN("ByteImpl objects are equal")
     {
