@@ -9,7 +9,7 @@
 
 #include <utility>
 
-#include "byte.h"
+#include "ara/core/byte.h"
 
 namespace ara::core {
 /**

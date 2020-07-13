@@ -27,9 +27,10 @@ class ByteImpl
      * @req {SWS_CORE_10104}
      */
     ByteImpl() = default;
+
     /**
      * @brief Constuct object with given value.
-     * @arg Value of byte
+     * @param Value of byte
      *
      * @req {SWS_CORE_10102, SWS_CORE_10103}
      */
@@ -57,25 +58,27 @@ class ByteImpl
     /**
      * @brief Equality operator for Byte object.
      *
+     * @param rhs Byte object to compare with
      * @return true When given Byte object is equal
      * @return false When given Byte object is not equal
      * @req {SWS_CORE_10109}
      */
-    constexpr bool operator==(const ByteImpl& secondByteObject) const
+    constexpr bool operator==(const ByteImpl& rhs) const
     {
-        return impl == secondByteObject.impl;
+        return impl == rhs.impl;
     }
 
     /**
-     * @brief Not-equality operator for Byte object.
+     * @brief Non-equality operator for Byte object.
      *
+     * @param rhs Byte object to compare with
      * @return true When given Byte object is not equal
      * @return false When given Byte object equal
      * @req {SWS_CORE_10110}
      */
-    constexpr bool operator!=(const ByteImpl& secondByteObject) const
+    constexpr bool operator!=(const ByteImpl& rhs) const
     {
-        return ! (*this == secondByteObject);
+        return ! (*this == rhs);
     }
 
  private:
